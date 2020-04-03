@@ -1,0 +1,15 @@
+{
+  "name": "COVID",
+  "version": "1.0.0",
+  "description": "covid updates",
+  "main": "index.js",
+  "repository": "https://github.com/jacksonmelcher/csv-test.git",
+  "author": "Jackson Melcher <jackson.melcher@ringcentral.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
