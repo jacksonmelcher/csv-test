@@ -3,13 +3,9 @@ const axios = require('axios');
 const CSVToJSON = require('csvtojson');
 const fsLibrary = require('fs');
 
-// const app = express();
+const app = express();
 
-// const port = 3000;
-
-// app.listen(port, () => {
-//     console.log(`Example app listening at http://localhost:${port}`);
-// });
+const port = 3000;
 
 const getData = async () => {
     let response;
@@ -32,29 +28,39 @@ const getData = async () => {
 
 const toJSON = async () => {
     let formattedData;
+    let countyData = [];
+    await getData();
     try {
         formattedData = await CSVToJSON()
             .fromFile('./cases.csv')
             .then((source) => {
-                const index = source.find((area, index) => {
-                    return (
-                        area.county === 'Washoe' && area.date === '2020-04-02'
-                    );
-                });
-                return index;
+                for (let i = 0; i < source.length; i++) {
+                    if (source[i].county === 'Washoe') {
+                        countyData.push(source[i]);
+                    }
+                }
+                return countyData;
             });
     } catch (error) {
         console.log(error);
     }
 
     return formattedData;
-
-    console.log(formattedData);
 };
+
+// toJSON();
 
 const washoe = async () => {
     const json = await toJSON();
-    console.log(json);
+    // console.log(json);
 };
 
 washoe();
+
+app.get('/', (req, res) => {
+    res.send('Hello World');
+});
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
+});
